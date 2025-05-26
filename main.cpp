@@ -40,24 +40,21 @@ bool isOperator(char ch) {
 
 // Function to get the precedence of an operator
 int getPrecedence(char op) {
-    if (op == '^')
-        return 3;
-    else if (op == '*' || op == '/')
-        return 2;
-    else if (op == '+' || op == '-')
-        return 1;
-    else
-        return -1; // For non-operators
+    if (op == '^') return 3;
+    if (op == '*' || op == '/') return 2;
+    if (op == '+' || op == '-') return 1;
+    return -1;
 }
 
-// Function to convert infix expression to postfix expression
+// Function to convert infix expression to postfix
 char* infixToPostfix(const char* infix) {
     char* postfix = new char[strlen(infix) + 1];
     stack<char> operatorStack;
-
     int postfixIndex = 0;
+
     for (int i = 0; infix[i] != '\0'; ++i) {
         char ch = infix[i];
+
         if (isalnum(ch)) {
             postfix[postfixIndex++] = ch;
         } else if (ch == '(') {
@@ -67,7 +64,7 @@ char* infixToPostfix(const char* infix) {
                 postfix[postfixIndex++] = operatorStack.top();
                 operatorStack.pop();
             }
-            operatorStack.pop(); // Pop '('
+            if (!operatorStack.empty()) operatorStack.pop(); // Remove '('
         } else if (isOperator(ch)) {
             while (!operatorStack.empty() && getPrecedence(operatorStack.top()) >= getPrecedence(ch)) {
                 postfix[postfixIndex++] = operatorStack.top();
@@ -86,36 +83,25 @@ char* infixToPostfix(const char* infix) {
     return postfix;
 }
 
-// Function to evaluate a postfix expression
+// Function to evaluate postfix expression
 double evaluatePostfix(const char* postfix) {
     stack<double> operandStack;
 
     for (int i = 0; postfix[i] != '\0'; ++i) {
         char ch = postfix[i];
+
         if (isalnum(ch)) {
-            operandStack.push(ch - '0'); // Convert char to int
+            operandStack.push(ch - '0'); // Assuming single-digit operands
         } else if (isOperator(ch)) {
-            double operand2 = operandStack.top();
-            operandStack.pop();
-            double operand1 = operandStack.top();
-            operandStack.pop();
+            double operand2 = operandStack.top(); operandStack.pop();
+            double operand1 = operandStack.top(); operandStack.pop();
 
             switch (ch) {
-                case '+':
-                    operandStack.push(operand1 + operand2);
-                    break;
-                case '-':
-                    operandStack.push(operand1 - operand2);
-                    break;
-                case '*':
-                    operandStack.push(operand1 * operand2);
-                    break;
-                case '/':
-                    operandStack.push(operand1 / operand2);
-                    break;
-                case '^':
-                    operandStack.push(pow(operand1, operand2));
-                    break;
+                case '+': operandStack.push(operand1 + operand2); break;
+                case '-': operandStack.push(operand1 - operand2); break;
+                case '*': operandStack.push(operand1 * operand2); break;
+                case '/': operandStack.push(operand1 / operand2); break;
+                case '^': operandStack.push(pow(operand1, operand2)); break;
             }
         }
     }
@@ -123,18 +109,39 @@ double evaluatePostfix(const char* postfix) {
     return operandStack.top();
 }
 
-int main() {
-    stack<int> myStack; // stack to demonstrate basic stack operations
+// Function to display "About Us" information
+void displayAboutUs() {
+    cout << "\n========== About Us ==========\n";
+    cout << "We are Computer Science students and this project is a\n";
+    cout << "Data Structures and Algorithms implementation focused\n";
+    cout << "on stack operations, infix-to-postfix conversion, and\n";
+    cout << "postfix expression evaluation.\n\n";
 
-    // Menu for user interaction
+    cout << "This program was developed by:\n\n";
+    cout << left;
+    cout.width(25); cout << "1. Abdurahman Abdella";   cout << "ID: DDU1600032\n";
+    cout.width(25); cout << "2. Ana Abdurazaq";        cout << "ID: DDU15022665\n";
+    cout.width(25); cout << "3. Dego Roba";             cout << "ID: DDU1600200\n";
+    cout.width(25); cout << "4. Nadiya Shigute";        cout << "ID: DDU1600575\n";
+    cout.width(25); cout << "5. Yohannis Garomsa";      cout << "ID: DU1601937\n";
+    cout.width(25); cout << "6. Bamlaku Ademe";         cout << "ID: RMD420\n";
+
+    cout << "===============================\n";
+}
+
+int main() {
+    stack<int> myStack;
+
     while (true) {
+        cout << "\n====== Stack Menu ======";
         cout << "\n1. Push element to stack";
         cout << "\n2. Pop element from stack";
         cout << "\n3. Display stack";
         cout << "\n4. Convert infix expression to postfix";
         cout << "\n5. Evaluate postfix expression";
         cout << "\n6. Exit";
-        cout << "\nEnter your choice (1-6): ";
+        cout << "\n7. About Us";
+        cout << "\nEnter your choice (1-7): ";
 
         int choice;
         cin >> choice;
@@ -150,7 +157,7 @@ int main() {
                 displayStack(myStack);
                 break;
             case 4: {
-                char infixExpression[100]; // Adjust the size as needed
+                char infixExpression[100];
                 cout << "Enter infix expression: ";
                 cin >> infixExpression;
                 char* postfixExpression = infixToPostfix(infixExpression);
@@ -159,7 +166,7 @@ int main() {
                 break;
             }
             case 5: {
-                char postfixExpression[100]; // Adjust the size as needed
+                char postfixExpression[100];
                 cout << "Enter postfix expression: ";
                 cin >> postfixExpression;
                 double result = evaluatePostfix(postfixExpression);
@@ -167,13 +174,15 @@ int main() {
                 break;
             }
             case 6:
-                cout << "Exiting program." << endl;
+                cout << "Exiting program. Goodbye!\n";
                 return 0;
+            case 7:
+                displayAboutUs();
+                break;
             default:
-                cout << "Invalid choice. Please enter a number between 1 and 6." << endl;
+                cout << "Invalid choice. Please enter a number between 1 and 7.\n";
         }
     }
 
     return 0;
 }
-
