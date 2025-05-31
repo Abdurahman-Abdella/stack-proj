@@ -1,3 +1,13 @@
+/*
+===============================================
+  Project: Stack Operations and Expression Evaluator
+  Course: Data Structures and Algorithms
+  Dedicated to: Mr. Jibril Yusuf
+  Institution: Dilla University
+  Date: May 2025
+===============================================
+*/
+
 #include <iostream>
 #include <stack>
 #include <cmath>
@@ -117,6 +127,8 @@ void displayAboutUs() {
     cout << "on stack operations, infix-to-postfix conversion, and\n";
     cout << "postfix expression evaluation.\n\n";
 
+    cout << "Supervised by: Mr. Jibril Yusuf\n\n";
+
     cout << "This program was developed by:\n\n";
     cout << left;
     cout.width(25); cout << "1. Abdurahman Abdella";   cout << "ID: DDU1600032\n";
@@ -126,6 +138,17 @@ void displayAboutUs() {
     cout.width(25); cout << "5. Yohannis Garomsa";      cout << "ID: DU1601937\n";
     cout.width(25); cout << "6. Bamlaku Ademe";         cout << "ID: RMD420\n";
 
+    cout << "===============================\n";
+}
+
+// Function to display instructor info
+void displayInstructorInfo() {
+    cout << "\n====== About Instructor ======\n";
+    cout << "This project was developed under the guidance of\n";
+    cout << "Mr. Jibril Yusuf, an esteemed lecturer in the\n";
+    cout << "Department of Computer Science at Dire-Dawa University.\n";
+    cout << "His expertise and mentorship were crucial for the\n";
+    cout << "completion of this work.\n";
     cout << "===============================\n";
 }
 
@@ -141,7 +164,8 @@ int main() {
         cout << "\n5. Evaluate postfix expression";
         cout << "\n6. Exit";
         cout << "\n7. About Us";
-        cout << "\nEnter your choice (1-7): ";
+        cout << "\n8. About Instructor";
+        cout << "\nEnter your choice (1-8): ";
 
         int choice;
         cin >> choice;
@@ -179,8 +203,11 @@ int main() {
             case 7:
                 displayAboutUs();
                 break;
+            case 8:
+                displayInstructorInfo();
+                break;
             default:
-                cout << "Invalid choice. Please enter a number between 1 and 7.\n";
+                cout << "Invalid choice. Please enter a number between 1 and 8.\n";
         }
     }
 
