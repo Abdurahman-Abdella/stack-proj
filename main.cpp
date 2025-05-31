@@ -3,7 +3,7 @@
   Project: Stack Operations and Expression Evaluator
   Course: Data Structures and Algorithms
   Dedicated to: Mr. Jibril Yusuf
-  Institution: Dilla University
+  Institution: Dire Dawa University
   Date: May 2025
 ===============================================
 */
